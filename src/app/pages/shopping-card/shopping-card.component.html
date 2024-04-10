@@ -1,0 +1,168 @@
+<div class="w-[90%] flex h-[750px] pt-28 pb-10 mx-auto">
+    <!-- Background overlay with opacity -->
+    <div class="w-[30%] bg-[#202124] rounded-tl rounded-bl">
+        <img src='https://play-lh.googleusercontent.com/MN0gvZjothJDo1rS6NLNoATtGtCeLrLw65_frBJdJXY37ECWazqByo4TGdNkvKc05w'
+            alt="imfa" />
+    </div>
+
+    <!-- Shopping cart card -->
+    <div class="w-[70%] relative">
+        @if (AddressAndOpenPayment) {
+        <app-orderpayment />
+        <!-- Actions -->
+
+        <div class=" w-full absolute bottom-0 flex justify-between border-t py-2 bg-[#eff3f5]  ">
+            <div class="mt-2 ml-5 cursor-pointer" (click)="backtoAddressHandler()">
+                <mat-icon class="text-3xl">keyboard_backspace</mat-icon>
+            </div>
+            <div class="w-auto flex mx-4">
+
+                <div class="mr-4">
+                    <h1 class="text-xl font-semibold text-black">₹ {{UserProductPrice !== 0 ? UserProductPrice:
+                        DefaultProductPrice}} <mat-icon class="mt-1 font-semibold">arrow_drop_down</mat-icon>
+                    </h1>
+                    <p class="text-xs ">Inclusive of all taxes</p>
+
+                </div>
+                <button (click)="PaymentConfirm()"
+                    class="bg-gray-950 text-white text-base font-medium px-12 py-[11px] rounded-md hover:bg-gray-800">Payment
+                    Confirm
+                </button>
+            </div>
+        </div>
+        }@else{
+        @if (AddressOn) {
+        <div class="bg-white h-full relative border border-[#202124] ">
+
+            <div class="flex justify-end pr-4 pt-2 pb-2">
+                @if (AddressNew) { <button (click)="canceladdress()"
+                    class="ml-2 h-10 rounded-full px-4 py-2 bg-[#202124] text-white  hover:bg-[#4d4f53]">
+                    Cancel
+                </button>}
+                <button (click)="newaddress()"
+                    class="ml-2 h-10 rounded-full px-4 py-2 bg-[#202124] text-white  hover:bg-[#4d4f53]">
+                    New Address
+                </button>
+            </div>
+            @if (AddressNew !== true) {
+            <div>
+                <div class="  py-4 px-24">
+
+                    <ng-container *ngFor="let item of shippingAddressData; let i = index">
+                        <div class="flex justify-between">
+                            <div class="mt-4">
+                                <input [(ngModel)]="selectedItem" (change)="changeSelectedItem()" name="selectedItem"
+                                    type="radio" [value]="i">
+                            </div>
+                            <div class="">
+                                <h1 class="text-xl font-serif">{{ item?.fullname }} , {{ item?.mobilenumber }}</h1>
+                                <h1 class="text-xl font-serif">{{ item?.pincode }}, {{ item?.state }}, {{ item?.city }},
+                                    {{ item?.roadnumber }}</h1>
+                                <h1 class="text-xl font-serif">{{ item?.fulladdress }}</h1>
+                            </div>
+                            <button
+                                class="ml-2 h-10 rounded-full px-4 py-2 bg-[#202124] text-white  hover:bg-[#4d4f53]">
+                                Change
+                            </button>
+                        </div>
+                    </ng-container>
+
+                </div>
+                <!-- Actions -->
+                <div
+                    class="flex justify-between w-full absolute border-t px-8 py-2 bg-[#eff3f5]  bottom-0 border-b border-[#202124]">
+                    <div class="mt-2 cursor-pointer" (click)="backtoCardHandler()">
+                        <mat-icon class="text-3xl">keyboard_backspace</mat-icon>
+                    </div>
+                    <div class="w-auto flex mx-4">
+                        <div class="mr-4">
+                            <h1 class="text-xl font-semibold text-black">₹ {{UserProductPrice !== 0 ? UserProductPrice:
+                                DefaultProductPrice}} <mat-icon class="mt-1 font-semibold">arrow_drop_down</mat-icon>
+                            </h1>
+                            <p class="text-xs ">Inclusive of all taxes</p>
+
+                        </div>
+                        <button (click)="confirmAddressAndOpenPayment()"
+                            class="bg-gray-950 text-white text-base font-medium px-12 py-[11px] rounded-md hover:bg-gray-800">Confirm
+                            Address
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            } @if (AddressNew) {
+            <app-shipping-address />
+            }
+
+
+
+
+
+
+        </div>
+        }
+        @else {
+        <div class="w-full h-full  bg-white shadow-md rounded-tr rounded-br">
+
+            <!-- Header -->
+            <div class="flex justify-between mb-3 px-4 pt-4">
+                <div class="text-xl font-semibold  ">Your Cart</div>
+                <mat-icon class="mt-1 font-semibold cursor-pointer">close</mat-icon>
+            </div>
+            <div class="py-3 px-4 mx-4 bg-[#eff3f5] border rounded-lg font-medium mb-5">
+                <h1 class="text-sm">Get upto 164 boAt reward points on this order i</h1>
+            </div>
+
+
+            <!-- Shopping Cart Items -->
+            <div class="w-full n mb-4 overflow-x-hidden overflow-y-auto">
+                <app-shopping-cart-items class=""></app-shopping-cart-items>
+            </div>
+
+            <div class="w-full  border-t pt-2 shadow-lg ">
+                <!-- Check Box -->
+                <div class="flex items-center mb-4 mx-4">
+                    <input id="link-checkbox" type="checkbox" value=""
+                        class="w-4 h-4 text-gray-900 bg-gray-100 border-gray-300 rounded focus:text-gray-900 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="link-checkbox" class="ms-2 text-sm  font-sans text-gray-600 dark:text-gray-300">Get
+                        <span class="font-semibold text-black">GST</span> Invoice</label>
+                </div>
+                <!-- Payment Logo -->
+                <div class="flex pb-2 mx-10">
+                    <div class="w-[65%] ">
+                        <h1 class="font-medium text-gray-900 text-base">₹15 off on All UPI Payments</h1>
+                    </div>
+                    <div class="w-[35%] flex justify-evenly">
+                        <img class="w-16 h-6"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZIAAAB9CAMAAAC/ORUrAAAAt1BMVEX///8gM2sAuvIAt/EAIGIcMGklOnIXLGcAI2PI8Py05/r5/v8EvPI9w/Te9v2i4voAFV6/xNKprb4RKWbx8vZ7hKJeapBVYYuLkqw4SHlRXIUAG2BAT3/o+v6wtMOt4fmcordByfTV2eMxQnV0fJne4ekAD1ys5voAs/EAGF8ADFvJzdn29/rX8/1+1/dt0vac3/nm6O4AAFmPlq9sdpk4x/SBi6i+6vtz0/dezPVkbY+ZnrWK2/g44kgwAAAKCUlEQVR4nO2d63qiOhSGgUDBqi0Wq1WUsVodbbXV3dqOrfd/XdvDIJBkRSBhRMP3a57pYhnykvNKoiiFNirfLiur2alTUSjQK0KahlDBJC+6qWyAbIRWp05Job18IppWPXVSCu3UrWhagSRPKldRgSRfeguIFEhyod8hIgWSPGimaQWSfKmKCiT50isqSkm+dBslUiA5uUqaViDJlWY4kQLJiUWUkQLJiTVHBZJcqftIIVIgOZ26u/WRAklu9PVIB1IgOYVurtdLiMcRJOUuIcyg9Ov1cVmpVJdvtyXYT/drvlpWN1ar9S/QrNa4iqlW5/vH68d59/5nE1Tj4/7Hqx11c9ekJOB+QRpOPzukZfsnYnOzqlQq2hgxeGxVOaj6J5Ljc7R9Ftdr4H9eRQfn238t5xixnWZ/Koc07DysrssUM+8/04gt09EndsObHsnO3n+OCctxHEufPBsNrw67eLJpyXKsIW44NS1aSvV2OCuOoKAIaaE8nY/pNm/7P39Rit4mu/FC8LtKmCE0JqMwps9qUpm6+8DITEUZ/hfHjWHqz20PcFGzgd9u45b3Ft3SvQtsqkmBaJGV+DIEdLzNzlKV/meEquHcvq1AZiusQNX0xEg2ctx3BpIekEuUHNbdH6qLe4f+gKHiVdfmv+hJ/DiYhNZyk+hQp5QgJGiulFeMAojefB8zgNseylwAElW1ruDWID6SrSOdVlIgJKqK11yQodk4mNykQlI5fLwwktuSxqwSUWVfUGgD07DZMtykpEWiGpNQzcCBRDXsD7JtOg8kGuPb93P798YBqyTtrbQbAUhUdQJVXsmQbOqYFtGROhMkMYTWZepUAW4WtDscSFT3QQwS1TTxjAaRGOeGZFMCYj2ODuWEB4nq9sQgIVvtC0ISV8j/PS4kqkVt45MjUc1BtD2REIlWKYtAYrRoo8YUSFTrXnok/kiID4mq9wQhUe0X2ZFo6FoEEnLolhaJ2ZQeiVYRgUS1KKPvVEjUSbiYyIlkP4znRWIMyNYkHRLzI+RCTiQaEoFE1V8UXOmQqFaoDpQVya0IJM6TMCQ96ZHsWhNuJEZHFJJwzSUrElQSgYSYdUqLxLgKVmGkRbIWgITSmKREok6C7JYVibYUgcQiJunTIgmtnEiLBIlA4nziSLy0y2LBbL+8SLoCkETGE3sZwOLrETnBPBeIhJjGj4Eks4XeDIRmIpA0FFxDR7cgMWiZ39kgOb6qR8ubt8Pj/xRJiYUkFILDQmIQQSMbeXeAegO4oTGbh5kAsUi6QHQIK2sqwXI4GwlC442OhYjtDNE2RGzM9nbNQBKOVJvoMBUqEoY+QSZGOyMkSnn9GAgOIVoGRutQgAILCdLWuyXa8texooj+7NcNy79YHwgLSbQj9TIwRSFRmpAro3MYmAhGEtEXlCMVWoQiGwl6DNB9MYlUQkFdbwyHLCS9SLKmLaicJEZSg4qJ0YqBBF/HTI7kGkRyQ3+AgWQZ007TIkGNcIlKgAQ2TIxkCJaSs0OCok/8gQ1fI4ZdIUgWUFihxEjw46JmcDHBXIPFJBGSgTAk4DDw7JBEI0cZA6AqFiG/zheSy2lLdssbIZXBzhyOBN9yf2IkcEfh3JHAIfq5RjJsgrGlZ4/kHErJ4sV7f/oO78Fq2eAA5/yR5L2UTL2ma7uWFd2QxZqbKZBkiqT/9KzD5aFA8s+RvHRssMWAVSDJDMmiaadaMCmQZIXEGyWtsXxPBZJskHyOEpIIPBVIMkHy4SYEEfIUA4mFx8MAu7ELJAc1OBaO4yBxsM14YPoLJH5W8izlx0GiOpGaawrNT0uBJM4SlgdVI7EUC4mh9xb1v1p48NBTAiR34PxtgKTOij85rhCST8awxprYvhghAZePpA/WECEkTynGh2FPAZJ3Pk/qRSJxfuqB+u/w9xggGXJVWxEkaWNYA10gEtWxA7mMjzZA8sH5aYeQvKTvSv/VJSKJ/e4+kgVnIQkjGWYRhJkjJL+zReK/O3dlE0JSh7rcyZOVSyQZlxI/krfNm4shJMp3ynmyIFkSI/Hj3esTXk9hJO+8RU5mJH5vOe2ukkBhJNyNSb6RZNuW+BvjuL/rCBKlzVlzSYzksH2Uc5yoYkg8zm6wxEhMf5M172eNIeHtc0mMxJ8tn7I6XI57GHQypsEiSJQeX8okRuKfkjbtwHk9+nnxZ2/7ngrvVIkgYTmMIXmRHOotRg6OokscVzECULfim1SRF4nub9aCkTjYSakvMcK0d3rnSZu0SIKTBGEkxPER4E4VDIkChw8fl7RI3MOBDjASFw8qgWouAsm0lZ6JrEic4L2zQKLU0zORFEn4bKBMkGy61mnTJycSIxwtkg0SRXkYpesLS4nEcGuhH8kKifJyxQh6gCUjEsMKE8kOyWYc76SAIiESaxDN6QyRKEqtPbISTqFJh8Sw8VO4MkWiKIu75mRCnF/EOrZILiSO3SHO/88YyVbDGnaA0U8LnnORCInh6PYH5UKGf4CEIjji9RKRmOTxZrrujoz7mkLTaZCca+R8KiTmE3HMmefV+mCmnQgJeGjhBSIhDzZl61RIoOiiAsnJkECLmQWSUyEBo8dgJGB2FEiEIAFPJSyQMJDgnvoxzuOCf2avvyv5tQE4eV8gYSAxzKglfNwmBcn03njeahRWrF1Y5InSx7Lj0pAworSN8H2+fXhVioaknXavnXNP+DqWHReHBPz4t9P4zuHEYTduHNdOd6mjVPAgDBmRfDCnamOdy00iSR/VCqdfHiQPYmOCeZHo9HkfqZDw7/gUimQE9t7kQcK/41MkEqMFJvR8kXhKMk2FbvnhRUJedCMhEqXBu5tBJJIJHmIpJRKRO3p5kRgqnE6JkHDvHxWIhHZ18NHsyDsSPTES7q1xApHYjNkymZAMUx8huJc4JBbcuMuFROBJQ3weDYe8XjtGdlwikgVfayIMyQgcuTOz4xKRiDu1zlcqJBZ5uXas7PiHSMDFZuFIOM92bBP1TRokJnm3dkSSIVEaHIMTytXxKZCY6pG1SdmQKM305cQlm4DkSEx1cSSF0iFR7tN2hY0O2U9KjESnOMEkHxKlNknXF6b1kxIiMZ4fSB+4JESi1L/TXARg03IzGRJ9gN9NSlPekfShbusozttB6jefE4YxGCPqrBR8oS/pQXd7sRIHRzsCF8Iq0APjEmYIXZeIHjFD8K7L8UxRWvQP2mnGej1Qw5/BSHfMmDe/m65Bn0zvx2yYTGvUiVusb6APtAo9sR7TH1jihtD1v5tvHxMAb3d5Zt10Kbey2+QQIbHqtYdGxwhFXUEa2Q1wuO2NLIcpy9Jde9LsHetnhQTcM4lm4BNzRNF4VSYMb2mGCK1Jl6sxw2XNI0XZ05NW0/pRsR5f3D2w9H7n1foJcOx0S7sl9BEmstGshGtGAtmofP2L0DW1jep+XeP62tac/wOMuqgwdk3GvAAAAABJRU5ErkJggg=="
+                            alt="asd" />
+                        <img class="w-6 h-6 pb-1"
+                            src="data:image/png;base64,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"
+                            alt="hk" />
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Actions -->
+            <div class=" w-full   border-t py-2 bg-[#eff3f5]  bottom-0">
+                <div class="w-full flex mx-4">
+                    <div class="mr-4">
+                        <h1 class="text-xl font-semibold text-black">₹ {{UserProductPrice !== 0 ? UserProductPrice:
+                            DefaultProductPrice}} <mat-icon class="mt-1 font-semibold">arrow_drop_down</mat-icon>
+                        </h1>
+                        <p class="text-xs ">Inclusive of all taxes</p>
+
+                    </div>
+                    <button (click)="nextStepAddress()"
+                        class="bg-gray-950 text-white text-base font-medium px-12 py-[11px] rounded-md hover:bg-gray-800">Confirm
+                        Order
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+        }
+
+
+    </div>

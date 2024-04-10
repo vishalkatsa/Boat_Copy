@@ -1,0 +1,74 @@
+<nav class="w-full h-20 bg-white  border-b fixed z-50">
+
+    <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 ">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center">
+                <a routerLink="/" class="w-20 h-16 font-bold  text-gray-900 text-xl">
+                    <img class="w-full h-full "
+                        src="https://www.boat-lifestyle.com/cdn/shop/files/boAt_logo_small_3067da8c-a83b-46dd-b28b-6ef1e16ccd17_small.svg?v=1693549434"
+                        alt="boat-lifestyle">
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="hidden sm:flex sm:items-center">
+                <a routerLink="/" class="px-3 py-2 text-lg  font-serif text-gray-700 hover:text-gray-900 ">Categories</a>
+                <a routerLink="/products" class="px-3 py-2 text-lg  font-serif text-gray-700 hover:text-gray-900">boAt
+                    Personalisation</a>
+                <a routerLink="/about" class="px-3 py-2 text-lg  font-serif text-gray-700 hover:text-gray-900">Gift with
+                    boAt</a>
+                <a routerLink="/contact"
+                    class="px-3 py-2 text-lg  font-serif text-gray-700 hover:text-gray-900">Corporate Orders</a>
+                <a routerLink="/contact" class="px-3 py-2 text-lg  font-serif text-gray-700 hover:text-gray-900">More</a>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="hidden sm:flex sm:ml-6 items-center">
+                <div class="flex w-80 bg-gray-100 rounded-full focus:outline-none focus:border-blue-500">
+                    <button class=" px-2 py-1 mt-1 ml-2 rounded-md">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <input type="text" placeholder="boat-lifestyle"
+                        class="w-64 mt-1 px-3 py-2 font-serif text-base bg-transparent outline-none border-none">
+
+                </div>
+
+            </div>
+
+            <!-- Shopping Cart Icon -->
+            <div class="hidden sm:flex sm:items-center relative">
+              
+                    <button (click)="onclickPerson()" class=" p-2  rounded-md cursor-pointer" >
+                        <mat-icon   class="text-gray-500">person</mat-icon>
+                    </button>
+              
+                
+             
+               
+                <button routerLink="account/viewcart"   class=" p-2  rounded-md">
+                    <mat-icon class="text-gray-500">shopping_cart_checkout</mat-icon>
+                </button>
+                @if (togglePerson === false) {
+                    <div class="flex bg-white top-16 right-10  rounded-md shadow-md absolute z-50">
+                        <h1 class="px-6 py-2 hover:bg-[#e00101] rounded-md hover:text-white cursor-pointer" routerLink="/login">Login</h1>
+                        <h1 class=" px-6 py-2 hover:bg-[#e00101] rounded-md hover:text-white cursor-pointer" routerLink="/register">Register</h1>
+                    </div>
+                }
+                
+            </div>
+            
+
+            <!-- Mobile Menu Button -->
+            <div class="sm:hidden ml-6 flex items-center">
+                <button type="button" class="text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900"
+                    aria-label="Toggle menu">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>

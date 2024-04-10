@@ -1,0 +1,33 @@
+<div class="w-full h-60 px-4">
+
+    @for (item of UserProduct; track $index) {
+    <div class="flex px-4 justify-between border-b pb-2">
+        <div class="w-auto bg-[#f6fcff] p-2 rounded-sm">
+            <img [src]=" 'http://localhost:4000/'+ item?.productId?.image"
+                alt="d" class="w-20  h-full" />
+        </div>
+        <div class="w-[40%]">
+            <h1 class="font-medium mb-2 text-black">{{item?.productId?.productname}}</h1>
+            <h1 class="font-medium mb-3 text-black">₹ {{PriceHandler(item)}}</h1>
+            <p class="w-14 py-1 px-[10px] rounded-full font-normal text-sm bg-[#f6fcff]">Black</p>
+        </div>
+        <div class="flex justify-center items-center">
+            <div class="w-full flex border rounded-2xl items-center">
+                <div (click)="minus2(item)" class="bg-[#eff3f5] px-2 py-1 cursor-pointer rounded-full rounded-br-xl rounded-tr-xl">
+                    -
+                </div>
+                <h1 class="px-2 ">{{item?.quantity}}</h1>
+                <div  (click)="pulse2(item)" class="bg-[#eff3f5] px-2 py-1 cursor-pointer rounded-br-xl rounded-tr-xl">
+                    +
+                </div>
+            </div>
+        </div>
+        <div (click)="DeleteAddToCard(item?._id)" class="cursor-pointer">
+            Delete
+            <!-- <mat-icon   class="text-gray-700">delete_forever</mat-icon> -->
+        </div>
+
+    </div>
+
+    }
+</div>

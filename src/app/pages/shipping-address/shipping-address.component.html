@@ -1,0 +1,141 @@
+<!-- my-form.component.html -->
+
+<form 
+      #registerFrom="ngForm"
+      (ngSubmit)="ShippingAdsressSumbit(registerFrom)"
+      novalidate
+      class="w-full bg-white mx-auto p-4 border rounded">
+    <div class="grid grid-cols-2 gap-1">
+      <div class="mb-1">
+        <label for="fullname" class="block text-gray-700 font-bold mb-1">Full Name</label>
+        <input 
+              type="text" 
+              name="fullname"
+              #fullname="ngModel"
+              [(ngModel)]="registerOBJ.fullname"
+
+              required
+              id="fullname" class="border rounded px-3 py-2 w-full" 
+              placeholder="Full Name">
+        <div *ngIf="fullname.invalid && fullname.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="fullname.errors?.['required']">Please enter the fullname</span>
+          <!-- <span *ngIf="fullname.errors?.['fullname']">Invalid fullname format</span> -->
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="mobilenumber" class="block text-gray-700 font-bold mb-1">Mobile Number</label>
+        <input 
+              type="text" 
+              name="mobilenumber"
+              #mobilenumber="ngModel"
+              [(ngModel)]="registerOBJ.mobilenumber"
+
+              required
+              id="mobilenumber" 
+              class="border rounded px-3 py-2 w-full" 
+              placeholder="Mobile Number">
+        <div *ngIf="mobilenumber.invalid && mobilenumber.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="mobilenumber.errors?.['required']">Please enter the mobilenumber</span>
+          <!-- <span *ngIf="mobilenumber.errors?.['mobilenumber']">Invalid mobilenumber format</span> -->
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="pincode" class="block text-gray-700 font-bold mb-1">Pincode</label>
+        <input 
+              type="text" 
+              name="pincode"
+              #pincode="ngModel"
+              [(ngModel)]="registerOBJ.pincode"
+
+              required
+              id="pincode" 
+              class="border rounded px-3 py-2 w-full" 
+              placeholder="Pincode">
+        <div *ngIf="pincode.invalid && pincode.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="pincode.errors?.['required']">Please enter the pincode</span>
+          <!-- <span *ngIf="pincode.errors?.['pincode']">Invalid pincode format</span> -->
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="state" class="block text-gray-700 font-bold mb-1">State</label>
+        <input 
+              type="text" 
+              name="state"
+              #state="ngModel"
+              [(ngModel)]="registerOBJ.state"
+
+              required
+              id="state" 
+              class="border rounded px-3 py-2 w-full" 
+              placeholder="State">
+        <div *ngIf="state.invalid && state.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="state.errors?.['required']">Please enter the state</span>
+          <!-- <span *ngIf="state.errors?.['state']">Invalid state format</span> -->
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="city" class="block text-gray-700 font-bold mb-1">City</label>
+        <input 
+              type="text" 
+              name="city"
+              #city="ngModel"
+              [(ngModel)]="registerOBJ.city"
+
+              required
+              id="city" 
+              class="border rounded px-3 py-2 w-full" 
+              placeholder="City">
+        <div *ngIf="city.invalid && city.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="city.errors?.['required']">Please enter the city</span>
+          <!-- <span *ngIf="city.errors?.['city']">Invalid city format</span> -->
+        </div>
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="fulladdress" class="block text-gray-700 font-bold mb-1">Full Address</label>
+        <input 
+              type="text" 
+              name="fulladdress"
+              #fulladdress="ngModel" 
+              [(ngModel)]="registerOBJ.fulladdress"
+
+              required
+              id="fulladdress" 
+              class="border rounded px-3 py-2 w-full" 
+              placeholder="Full Address">
+        <div *ngIf="fulladdress.invalid && fulladdress.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="fulladdress.errors?.['required']">Please enter the fulladdress</span>
+          <!-- <span *ngIf="fulladdress.errors?.['fulladdress']">Invalid fulladdress format</span> -->
+       
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="roadnumber" class="block text-gray-700 font-bold mb-1">Road Number</label>
+        <input 
+            type="text" 
+            name="roadnumber"
+            #roadnumber="ngModel" 
+            [(ngModel)]="registerOBJ.roadnumber"
+
+            required
+            id="roadnumber" 
+            class="border rounded px-3 py-2 w-full" 
+            placeholder="Road Number">
+        <div *ngIf="roadnumber.invalid && roadnumber.touched" class="text-red-500 text-sm mt-1">
+          <span *ngIf="roadnumber.errors?.['required']">Please enter the roadnumber</span>
+          <!-- <span *ngIf="roadnumber.errors?.['roadnumber']">Invalid roadnumber format</span> -->
+        </div>
+      </div>
+    
+  
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mx-auto block">
+      Submit
+    </button>
+  </form>
+  

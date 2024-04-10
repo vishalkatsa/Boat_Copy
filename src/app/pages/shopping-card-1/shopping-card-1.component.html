@@ -1,0 +1,55 @@
+<div class="bg-white   grid grid-cols-1 md:grid-cols-4 gap-4 py-5">
+    @if (products) {
+        @for (item of products; track $index) {
+            <div  class="max-w-sm rounded-lg shadow border relative">
+                <div class="w-full h-[370px]  rounded-lg ">
+                    <div class="w-32 h-6  bg-black absolute top-4 rounded-tr-lg rounded-br-lg">
+                        <h1 class="text-white font-extrabold pt-[6px] text-[10px]  text-center">Engraving Available</h1>
+                    </div>
+                    <img class="w-full h-full  rounded-t-lg"
+                        [src]="'http://localhost:4000/' + item?.image" alt="hi">
+                </div>
+                <div class="px-3 pt-3 pb-2" >
+                    <div class="bg-yellow-400 w-4/5 h-7 mx-auto rounded-lg border border-white absolute top-[356px] left-9">
+                        <h1 class="text-black  text-xs pt-[6px] font-bold   text-center">120 Hours Playback</h1>
+                    </div>
+                    <div class="flex justify-between">
+                        <h2 class="text-lg fontbold700 mb-2  text-black ">{{item?.productname}}</h2>
+                        <div>
+                            <mat-icon class="text-black text20px pt-[11px] marge0 pr-0">radio_button_unchecked</mat-icon>
+                        </div>
+                    </div>
+                    <div class="flex ">
+                        <div class="w-full">
+                            <div class="w-full ">
+                                <h1 class="text-black fontbold700 text20px"><mat-icon
+                                        class="text-black text20px pt-1 marge0 pr-0">currency_rupee</mat-icon><span class="font-bold text-gray-800 text-xl">{{item?.price}}</span></h1>
+                            </div>
+                            <div class="flex">
+                                <div class=" ">
+                                    <mat-icon class="text-yellow-500   pt-2">star_half</mat-icon>5.0 <span
+                                        class="text-gray-400"> | </span>
+                                </div>
+                                <div class="mb-2">
+                                    <h1 class="text-gray-800  "> 19<mat-icon
+                                            class="text-green-500  pt-2  ">check_circle</mat-icon>
+                                    </h1>
+                                </div>
+                            </div>
+        
+                        </div>
+                        <div class="my-auto">
+                            <button
+                                (click)="add_to_card(item)"
+                                class="w-28 bg-gray-950 font-normal text-white px-2 py-2 rounded-md hover:bg-blue-600 transition duration-300 ">Add
+                                to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+       
+    }
+    
+
+</div>
