@@ -24,7 +24,7 @@ export class ApiService {
     let pulsePrice = item?.productId?.price * (quantitymy + 1);
 
     try {
-      this.patch('addtocard/updateproductquantity', { price: pulsePrice, quantity: (quantitymy + 1), _id: item._id }).subscribe((data) => {
+      this.patch('addtocard/updateproductquantity', { quantity: (quantitymy + 1), _id: item._id }).subscribe((data) => {
         if (data.message === "updatedquantity_201") {
           // alert("updated quantity")
         }
@@ -40,7 +40,7 @@ export class ApiService {
   
     
     try {
-      this.patch('addtocard/updateproductquantity', { price:minusPrice ,  quantity:(quantitymy - 1),_id:item._id}).subscribe((data) => {
+      this.patch('addtocard/updateproductquantity', { quantity:(quantitymy - 1),_id:item._id}).subscribe((data) => {
         
         
         if (data.message === "updatedquantity_201") {

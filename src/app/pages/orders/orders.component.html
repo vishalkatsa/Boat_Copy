@@ -1,1 +1,92 @@
-<p>orders works!</p>
+<div class="md:flex pt-20">
+    <div class="hidden md:block">
+        <aside class="bg-gray-800  text-gray-100 w-64 min-h-screen flex flex-col">
+            <!-- <div class="flex-shrink-0 py-4 px-6 bg-gray-900">
+                <h1 class="text-lg font-semibold">Dashboard</h1>
+            </div> -->
+            <nav class="flex-1 px-6 py-4">
+                <div routerLink="/account/profile" class="block cursor-pointer py-2 px-4 text-sm">Profile</div>
+                <div routerLink="/account/order" class="block cursor-pointer py-2 px-4 text-sm">Orders</div>
+                <div routerLink="/account/" class="block py-2 cursor-pointer px-4 text-sm">Settings</div>
+            </nav>
+        </aside>
+    </div>
+
+    <div class="flex flex-col min-h-screen w-full ">
+        <ng-container *ngFor="let item of CustmerAllOrder; let i = index">
+            <div class=" mx-auto mt-3 bg-white rounded-sm shadow-md overflow-hidden w-[95%]">
+                <div class="flex ">
+                    <div class="md:flex-shrink-0 p-4">
+                        <img class="h-32 md:h-full w-full object-cover md:w-48"
+                            [src]="'http://localhost:4000/'+item?.productId?.image" alt="Product Image">
+                    </div>
+                    <div class="p-8 w-full">
+                        <div>
+                            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Order
+                                #{{item?._id}}</div>
+                            <h2 class="hidden md:block  mt-1 text-lg leading-tight font-medium text-black">Product Name
+                            </h2>
+                            <p class="mt-2 text-gray-500">{{item?.productId?.productname}}</p>
+                            <div class=" md:hidden">
+                                @if (item.paymentStatus === true) {
+                                    @if (item.cancelStatus === false) {
+                                    <button (click)="handleCancel(item)"
+                                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-normal py-2 px-4 rounded">Cancel
+                                        Order
+                                    </button>
+                                    }@else {
+                                    <div
+                                        class="bg-yellow-400 hover:bg-gray-400 text-gray-900 font-normal py-2 px-4 rounded">
+                                        Canceled Order
+                                    </div>
+                                    }
+                                    }@else {
+                                    <div class="bg-red-500 text-white hover:bg-gray-400 font-normal py-2 px-4 rounded">
+                                        Payment Failed
+                                    </div>
+                                    }
+                            </div>
+                        </div>
+                        <div class="hidden md:block ">
+                            <div class="md:flex justify-between w-full ">
+                                <div class="mt-4 w-[50%] flex justify-between md:mr-40">
+                                    <p class="text-gray-600">Quantity: {{item?.quantity}}</p>
+                                    <p class="text-gray-600">Price: <mat-icon
+                                            class="text-base pt-1">currency_rupee</mat-icon>{{item?.productId.price}}
+                                    </p>
+                                    <p class="text-gray-600">Total: <mat-icon
+                                            class="text-base pt-1">currency_rupee</mat-icon><span
+                                            class="pb-3">{{item?.totalprice}}</span></p>
+                                </div>
+                                <div class="w-[50%] mt-4 flex justify-between">
+                                    <button
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-normal py-2 px-4 rounded">Track
+                                        Order</button>
+                                    @if (item.paymentStatus === true) {
+                                    @if (item.cancelStatus === false) {
+                                    <button (click)="handleCancel(item)"
+                                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-normal py-2 px-4 rounded">Cancel
+                                        Order
+                                    </button>
+                                    }@else {
+                                    <div
+                                        class="bg-yellow-400 hover:bg-gray-400 text-gray-900 font-normal py-2 px-4 rounded">
+                                        Canceled Order
+                                    </div>
+                                    }
+                                    }@else {
+                                    <div class="bg-red-500 text-white hover:bg-gray-400 font-normal py-2 px-4 rounded">
+                                        Payment Failed
+                                    </div>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

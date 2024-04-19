@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ApiService } from '../../../service/http.service';
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-card-1',
@@ -12,8 +13,8 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class ShoppingCard1Component implements OnInit {
 
-  constructor(private apiService: ApiService) { }
-
+  constructor(private apiService: ApiService,private router: Router) { }
+  
   products: any[] = [];
 
   shoppingCard1_Get() {
@@ -50,11 +51,13 @@ export class ShoppingCard1Component implements OnInit {
       const userId = userDataMy?._id
       this.apiService.post('addtocard/addtocardproduct',{productId,price,userId}).subscribe((data)=>{
         if (data?.message === "savedCard_200") {
-          // alert("p")
+          this.router.navigate(['/account/viewcart'])
         }
       })
-
   }
 
+  navigateSinglePage(item:any){
+    this.router.navigate(["/productpage",item?._id])
+  }
 
 }

@@ -33,12 +33,13 @@ export class ShoppingCardComponent implements OnInit {
   UserProductPrice: number = 0;
   DefaultProductPrice: number = 0;
   selectedItem: number = 0;
-  userId:any ;
+  userId: any;
+  userData: any = {};
 
   changeSelectedItem() {
     // You can perform any additional logic here when the item changes
     let address = this?.shippingAddressData[this?.selectedItem]?._id
-    console.log("Selected Item:" ,address, this?.shippingAddressData[this?.selectedItem]);
+    console.log("Selected Item:", address, this?.shippingAddressData[this?.selectedItem]);
   }
 
   constructor(
@@ -49,6 +50,7 @@ export class ShoppingCardComponent implements OnInit {
   ngOnInit(): void {
     const userData: any = localStorage.getItem('userData');
     const data: any = JSON.parse(userData);
+    this.userData = data
     let userId: any = data?._id;
     this.userId = data?._id;
 
@@ -61,7 +63,7 @@ export class ShoppingCardComponent implements OnInit {
     ////////////////////////////
 
     this.apiService
-      .post('shipping/getshippingaddress', {userId})
+      .post('shipping/getshippingaddress', { userId })
       .subscribe((data) => {
         console.log(data);
 
@@ -79,32 +81,30 @@ export class ShoppingCardComponent implements OnInit {
     this.apiService
       .get('addtocard/getaddtocardproduct', userId)
       .subscribe((data) => {
-        let ProductPrice = data.userProduct.map((product: any) => {
-          return product?.price;
-        });
+        let ProductPrice = data.userProduct;
 
-        this.DefaultProductPrice = ProductPrice.reduce(
-          (acc: any, currval: any) => {
-            return acc + currval;
-          },
-          0
-        );
+        this.DefaultProductPrice = ProductPrice.reduce((total: any, item: any) => {
+          return total + item.price * item.quantity;
+        }, 0);
       });
   }
 
-///////////////////////////////////////////////
+  ///////////////////////////////////////////////
 
   // paymentOn = new EventEmitter();
   nextStepAddress() {
-    this.AddressOn = true;
-    // this.paymentOn.emit(true);
-  }
-////////////  confirmAddressAndOpenPayment  ////////////
+    if (this.DefaultProductPrice !== 0) {
+      this.AddressOn = true;
+      // this.paymentOn.emit(true);
+    }
 
-  confirmAddressAndOpenPayment(){
+  }
+  ////////////  confirmAddressAndOpenPayment  ////////////
+
+  confirmAddressAndOpenPayment() {
     this.AddressAndOpenPayment = true
   }
-/////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   backtoCardHandler() {
     this.AddressOn = false;
@@ -116,19 +116,40 @@ export class ShoppingCardComponent implements OnInit {
   canceladdress() {
     this.contextService.setAddressNew(false);
   }
-  backtoAddressHandler(){
+  backtoAddressHandler() {
     this.AddressAndOpenPayment = false
   }
-/////////////////////////////////////////////// PaymentConfirm /////////////////////////////////////////////////////////
-  PaymentConfirm(){
-      console.log(this.userId);
-      let userId = this.userId
-      this.apiService.post('order/createorderproduct', {userId}).subscribe((data) => {
+  /////////////////////////////////////////////// PaymentConfirm /////////////////////////////////////////////////////////
+  data = {
+    name: this.userData?.firstname + this.userData?.lastname,
+    amount: 1,
+    number: '9999999999',
+    MUID: "MUID" + Date.now(),
+    transactionId: 'T' + Date.now(),
+  }
+
+
+  PaymentConfirm() {
+    console.log(this.userId);
+    let userId = this.userId
+    if (userId) {
+      this.apiService.post('order/orderpay', { userId }).subscribe((data) => {
         console.log(data);
 
-        if (data?.message === 'savedOrder_200') {
-          
+        if (data.data && data.data.data.instrumentResponse.redirectInfo.url) {
+          window.location.href = data.data.data.instrumentResponse.redirectInfo.url;
+        }
+        if (data?.message === 'SavedOrder_200') {
+          if (userId) {
+            this.apiService.delete(`addtocard/deleteaddtocardall/${userId}`).subscribe((data) => {
+              if (data?.message === "deletedAddtocard_200") {
+                // alert("add to card deleted")
+              }
+            })
+          }
         }
       });
+    }
+
   }
 }

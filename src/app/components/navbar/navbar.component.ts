@@ -31,7 +31,7 @@ export class NavbarComponent {
     if (token) {
       this.togglePerson = true;
       if (this.togglePerson) {
-        this._Router.navigate(['/account/profile'])
+        this._Router.navigate(['/account/order'])
       }
     } else{
       this.togglePerson =false

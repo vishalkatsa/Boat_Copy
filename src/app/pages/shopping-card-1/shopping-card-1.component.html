@@ -1,8 +1,8 @@
 <div class="bg-white   grid grid-cols-1 md:grid-cols-4 gap-4 py-5">
     @if (products) {
         @for (item of products; track $index) {
-            <div  class="max-w-sm rounded-lg shadow border relative">
-                <div class="w-full h-[370px]  rounded-lg ">
+            <div  class="max-w-sm rounded-lg shadow border cursor-pointer relative">
+                <div class="w-full h-[370px]  rounded-lg " (click)="navigateSinglePage(item)">
                     <div class="w-32 h-6  bg-black absolute top-4 rounded-tr-lg rounded-br-lg">
                         <h1 class="text-white font-extrabold pt-[6px] text-[10px]  text-center">Engraving Available</h1>
                     </div>
@@ -10,17 +10,17 @@
                         [src]="'http://localhost:4000/' + item?.image" alt="hi">
                 </div>
                 <div class="px-3 pt-3 pb-2" >
-                    <div class="bg-yellow-400 w-4/5 h-7 mx-auto rounded-lg border border-white absolute top-[356px] left-9">
+                    <div class="bg-yellow-400 w-4/5 h-7 mx-auto rounded-lg border border-white absolute top-[356px] left-9" (click)="navigateSinglePage(item)">
                         <h1 class="text-black  text-xs pt-[6px] font-bold   text-center">120 Hours Playback</h1>
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between" (click)="navigateSinglePage(item)">
                         <h2 class="text-lg fontbold700 mb-2  text-black ">{{item?.productname}}</h2>
                         <div>
                             <mat-icon class="text-black text20px pt-[11px] marge0 pr-0">radio_button_unchecked</mat-icon>
                         </div>
                     </div>
-                    <div class="flex ">
-                        <div class="w-full">
+                    <div class="flex " >
+                        <div class="w-full" (click)="navigateSinglePage(item)">
                             <div class="w-full ">
                                 <h1 class="text-black fontbold700 text20px"><mat-icon
                                         class="text-black text20px pt-1 marge0 pr-0">currency_rupee</mat-icon><span class="font-bold text-gray-800 text-xl">{{item?.price}}</span></h1>
